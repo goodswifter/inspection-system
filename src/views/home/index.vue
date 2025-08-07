@@ -74,19 +74,22 @@
         <template #header>
           <span>抽查结果</span>
         </template>
-        <div v-for="(result, index) in samplingResults" :key="index" class="result-item">
+        <div
+          v-for="(result, index) in samplingResults"
+          :key="index"
+          class="result-item"
+          :style="{ borderLeft: `4px solid ${getGroupColor(result.sheetName)}` }"
+        >
           <div class="result-header">
-            <h4>{{ result.sheetName }}</h4>
+            <h4 :style="{ color: getGroupColor(result.sheetName) }">{{ result.sheetName }}</h4>
             <div class="result-stats">
               <el-tag type="info">总人数: {{ result.totalCount }}</el-tag>
               <el-tag type="success">抽查人数: {{ result.sampledCount }}</el-tag>
             </div>
           </div>
-          <div class="sampled-data-display" flex>
-            <div v-for="(row, rowIndex) in result.sampledData" :key="rowIndex" class="data-row">
-              <span v-for="(cell, cellIndex) in row" :key="cellIndex" class="data-cell">
-                {{ cell }}
-              </span>
+          <div class="sampled-data-display">
+            <div class="data-row">
+              {{ result.sampledData.join('、') }}
             </div>
           </div>
         </div>
@@ -96,9 +99,10 @@
 </template>
 
 <script setup lang="ts">
-import * as XLSX from 'xlsx'
-import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import { ref } from 'vue'
+import * as XLSX from 'xlsx'
+import { getGroupColor } from './colors'
 
 const allSheetData = ref<Record<string, unknown[][]>>({})
 const samplingResults = ref<any[]>([])
@@ -266,12 +270,16 @@ const getRandomIndices = (total: number, count: number): number[] => {
 }
 
 .result-item {
+  padding: 16px;
   margin-bottom: 2rem;
+  background-color: #fafafa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 }
 
 .result-item h4 {
   margin-bottom: 0.5rem;
-  color: #333;
+  font-weight: 600;
 }
 
 .result-header {
@@ -353,8 +361,15 @@ tr:hover {
 .data-row {
   padding: 8px;
   margin-bottom: 0.5rem;
+  color: blue;
   background-color: #f8f9fa;
   border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.data-row:hover {
+  background-color: #f0f0f0;
+  transform: translateX(2px);
 }
 
 .row-header {

@@ -44,6 +44,8 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
           assetFileNames: 'assets/[ext]/[name]-[hash].[ext]', // 控制静态资源的命名
         },
       },
+      // 支持文件协议
+      assetsInlineLimit: 0,
     },
     define: {
       __INTLIFY_PROD_DEVTOOLS__: false,
