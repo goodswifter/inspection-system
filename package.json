@@ -74,8 +74,8 @@
     "vue-tsc": "^3.0.4"
   },
   "engines": {
-    "node": ">=22",
-    "pnpm": ">=9"
+    "node": ">=18",
+    "pnpm": ">=8"
   },
   "devEngines": {
     "runtime": {
