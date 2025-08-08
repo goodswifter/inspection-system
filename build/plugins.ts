@@ -37,17 +37,7 @@ export const getPluginsList = (VITE_COMPRESSION: ViteCompression = 'gzip'): Plug
     UnoCSS({ inspector: false }),
     // 三方库自动导入
     AutoImport({
-      imports: [
-        'vue',
-        'pinia',
-        'vue-router',
-        {
-          from: 'vue-router',
-          imports: ['RouteRecordRaw'],
-          type: true,
-        },
-        { '@/assets/r': ['R'] },
-      ],
+      imports: ['vue', 'pinia', 'vue-router', { '@/assets/r': ['R'] }],
       resolvers: [ElementPlusResolver()],
       // eslintrc: { enabled: true },
       dirs: [{ glob: 'src/enums/**' }, 'src/composables', 'src/stores'],
