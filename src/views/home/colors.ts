@@ -1,3 +1,5 @@
+import { ref } from 'vue'
+
 export const randomColors = [
   '#FF6B6B',
   '#4ECDC4',
