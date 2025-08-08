@@ -11,7 +11,6 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import removeConsole from 'vite-plugin-remove-console'
 import svgLoader from 'vite-svg-loader'
-import { viteGenAssets } from '../scripts/vite-plugin-gen-assets'
 import { configCompressPlugin } from './compress'
 import { viteBuildInfo } from './info'
 
@@ -23,7 +22,6 @@ export const getPluginsList = (VITE_COMPRESSION: ViteCompression = 'gzip'): Plug
     vueJsx(),
     viteBuildInfo(),
     // 生成图片资源常量
-    viteGenAssets(),
     // svg组件化支持
     svgLoader(),
     configCompressPlugin(VITE_COMPRESSION),
@@ -37,17 +35,7 @@ export const getPluginsList = (VITE_COMPRESSION: ViteCompression = 'gzip'): Plug
     UnoCSS({ inspector: false }),
     // 三方库自动导入
     AutoImport({
-      imports: [
-        'vue',
-        'pinia',
-        'vue-router',
-        {
-          from: 'vue-router',
-          imports: ['RouteRecordRaw'],
-          type: true,
-        },
-        { '@/assets/r': ['R'] },
-      ],
+      imports: ['vue', 'pinia', 'vue-router', { '@/assets/r': ['R'] }],
       resolvers: [ElementPlusResolver()],
       // eslintrc: { enabled: true },
       dirs: [{ glob: 'src/enums/**' }, 'src/composables', 'src/stores'],
