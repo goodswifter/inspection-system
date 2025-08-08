@@ -34,3 +34,6 @@ r.ts
 pnpm-lock.yaml
 # vscode 配置文件
 !settings.json
+
+# Git
+.git
